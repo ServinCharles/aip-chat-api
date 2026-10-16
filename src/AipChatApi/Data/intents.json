@@ -1,0 +1,227 @@
+{
+  "version": "1.0.0",
+  "confidenceThreshold": 0.3,
+  "synonyms": {
+    "adviser": "advisor",
+    "advisers": "advisor",
+    "advisors": "advisor",
+    "agent": "advisor",
+    "human": "advisor",
+    "person": "advisor",
+    "someone": "advisor",
+    "colleague": "advisor",
+    "representative": "advisor",
+    "aip": "agreement",
+    "dip": "agreement",
+    "mip": "agreement",
+    "principle": "agreement",
+    "lend": "borrow",
+    "loan": "borrow",
+    "afford": "borrow",
+    "affordability": "borrow",
+    "rating": "score",
+    "paperwork": "document",
+    "documents": "document",
+    "documentation": "document",
+    "payslips": "payslip",
+    "statements": "statement",
+    "expire": "valid",
+    "expires": "valid",
+    "expiry": "valid",
+    "unhappy": "complain",
+    "complaint": "complain",
+    "complaints": "complain",
+    "rubbish": "complain",
+    "terrible": "complain",
+    "hello": "hi",
+    "hey": "hi",
+    "morning": "hi",
+    "afternoon": "hi",
+    "thanks": "thank",
+    "cheers": "thank",
+    "bye": "goodbye",
+    "refer": "referred",
+    "referral": "referred",
+    "decline": "declined",
+    "rejected": "declined",
+    "rejection": "declined",
+    "refused": "declined",
+    "lvt": "ltv",
+    "hiya": "hi",
+    "howdy": "hi",
+    "check": "search",
+    "checks": "search",
+    "damage": "affect",
+    "harm": "affect",
+    "hurt": "affect",
+    "impact": "affect",
+    "effect": "affect",
+    "reject": "declined"
+  },
+  "intents": [
+    {
+      "name": "greeting",
+      "examples": [
+        "hi",
+        "hello there",
+        "hey",
+        "good morning",
+        "good afternoon",
+        "hi can you help me",
+        "hello I have a question"
+      ],
+      "response": "Hello! I can help with questions about your mortgage Agreement in Principle (AIP). What would you like to know?"
+    },
+    {
+      "name": "what_is_aip",
+      "examples": [
+        "what is an agreement in principle",
+        "what is an aip",
+        "what does decision in principle mean",
+        "explain agreement in principle",
+        "what is a mortgage in principle",
+        "why do I need an aip",
+        "what is this form for",
+        "is an aip a mortgage offer",
+        "does an agreement in principle guarantee a mortgage"
+      ],
+      "response": "An Agreement in Principle (AIP) is an early indication of how much we could lend you, based on your income and commitments. It isn't a mortgage offer: that comes after a full application and a property valuation."
+    },
+    {
+      "name": "credit_score_impact",
+      "examples": [
+        "does this affect my credit score",
+        "will an aip harm my credit rating",
+        "is this a hard credit search",
+        "will it show on my credit file",
+        "does applying hurt my credit score",
+        "soft search or hard search",
+        "will lenders see this search"
+      ],
+      "response": "Getting an AIP here uses a soft search, which doesn't affect your credit score and isn't visible to other lenders. A hard search only happens when you make a full mortgage application."
+    },
+    {
+      "name": "how_much_can_i_borrow",
+      "examples": [
+        "how much can I borrow",
+        "how much could I borrow on my salary",
+        "what is my borrowing power",
+        "how much will you lend me",
+        "maximum mortgage I can get",
+        "how much mortgage can I afford",
+        "I earn 45000 how much can I borrow",
+        "how big a loan can I get",
+        "what is the income multiple"
+      ],
+      "response": "As a guide, we lend up to 4.5 times your annual income, subject to your existing commitments. Tell me your annual income (for example \"I earn £45,000\") for an estimate, or use the form above for a full decision."
+    },
+    {
+      "name": "documents_needed",
+      "examples": [
+        "what documents do I need",
+        "what paperwork is required",
+        "do I need payslips",
+        "do I need bank statements",
+        "what proof of income do you need",
+        "what do I need to apply",
+        "which documents for a full application",
+        "do I need ID"
+      ],
+      "response": "You don't need any documents for an AIP. For a full application you'll usually need photo ID, proof of address, your last 3 months' payslips and 3 months' bank statements."
+    },
+    {
+      "name": "aip_validity",
+      "examples": [
+        "how long is my aip valid",
+        "when does the agreement in principle expire",
+        "how long does an aip last",
+        "is there an expiry date",
+        "how many days is it valid for",
+        "does the decision expire"
+      ],
+      "response": "Your AIP is valid for 90 days. If it expires before you apply, you can simply get a new one."
+    },
+    {
+      "name": "referred_meaning",
+      "examples": [
+        "what does referred mean",
+        "why was I referred",
+        "my decision says referred",
+        "what happens after a referral",
+        "I got referred what now",
+        "does referred mean declined",
+        "why is my application referred",
+        "is a referral a decline"
+      ],
+      "response": "\"Referred\" means we can't give an instant answer, often because the loan is above 4.5 times your income or more checks are needed. An underwriter will review it. It isn't a decline."
+    },
+    {
+      "name": "declined_next_steps",
+      "examples": [
+        "why was I declined",
+        "my aip was declined",
+        "what can I do if I am declined",
+        "you rejected my application",
+        "how can I improve my chances after a decline",
+        "can I reapply after being declined",
+        "why did I get turned down"
+      ],
+      "response": "A decline is usually because existing credit commitments are high compared to income. Reducing commitments or borrowing less may help. You can reapply any time, and an advisor can talk it through with you."
+    },
+    {
+      "name": "deposit_ltv",
+      "examples": [
+        "how much deposit do I need",
+        "what is the minimum deposit",
+        "what is loan to value",
+        "what is ltv",
+        "can I get a mortgage with a 5 percent deposit",
+        "does a bigger deposit help",
+        "what deposit percentage is needed"
+      ],
+      "response": "Loan to value (LTV) is the loan as a percentage of the property's value. We lend up to 90% LTV, so you'd need at least a 10% deposit. A bigger deposit can mean better rates."
+    },
+    {
+      "name": "speak_to_advisor",
+      "examples": [
+        "can I speak to an advisor",
+        "I want to talk to a human",
+        "put me through to someone",
+        "can a person call me",
+        "speak to a mortgage adviser",
+        "I need to talk to an agent",
+        "contact a real person"
+      ],
+      "response": "Of course. I'll pass you to a mortgage advisor. Please call 0800 000 0000 (Monday to Friday, 9am to 5pm) or request a call back from your account.",
+      "handover": true
+    },
+    {
+      "name": "complaint",
+      "examples": [
+        "I want to make a complaint",
+        "I am unhappy with the service",
+        "this is terrible",
+        "how do I complain",
+        "your service is rubbish",
+        "I want to raise a complaint"
+      ],
+      "response": "I'm sorry you're unhappy. I'll pass you to a colleague who can help with your complaint. Please call 0800 000 0000.",
+      "handover": true
+    },
+    {
+      "name": "thanks_goodbye",
+      "examples": [
+        "thank you",
+        "thanks that helps",
+        "cheers",
+        "bye",
+        "goodbye",
+        "that's all thanks"
+      ],
+      "response": "You're welcome. Good luck with your home search!"
+    }
+  ],
+  "fallback": {
+    "response": "Sorry, I can only help with questions about your Agreement in Principle. You can rephrase, or ask to speak to an advisor."
+  }
+}

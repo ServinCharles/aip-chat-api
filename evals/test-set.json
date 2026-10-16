@@ -1,0 +1,66 @@
+{
+  "description": "Held-out evaluation set. None of these questions appear in Data/intents.json. 'fallback' means the bot should say it can't help.",
+  "cases": [
+    { "text": "hiya", "intent": "greeting" },
+    { "text": "hello, is anyone there?", "intent": "greeting" },
+    { "text": "good afternoon, quick question", "intent": "greeting" },
+
+    { "text": "what exactly is an AIP?", "intent": "what_is_aip" },
+    { "text": "can you explain what a decision in principle is", "intent": "what_is_aip" },
+    { "text": "is the agreement in principle the same as a mortgage offer?", "intent": "what_is_aip" },
+    { "text": "what's the point of getting an agreement in principle", "intent": "what_is_aip" },
+
+    { "text": "will this impact my credit rating?", "intent": "credit_score_impact" },
+    { "text": "is it a soft credit check?", "intent": "credit_score_impact" },
+    { "text": "can other lenders see this search on my credit file", "intent": "credit_score_impact" },
+    { "text": "does getting an aip damage my score", "intent": "credit_score_impact" },
+
+    { "text": "how much could you lend me?", "intent": "how_much_can_i_borrow" },
+    { "text": "I earn £52,000, what can I borrow?", "intent": "how_much_can_i_borrow" },
+    { "text": "what's the most I can borrow", "intent": "how_much_can_i_borrow" },
+    { "text": "how many times my salary will you lend", "intent": "how_much_can_i_borrow" },
+
+    { "text": "which documents should I prepare?", "intent": "documents_needed" },
+    { "text": "do you need my bank statements", "intent": "documents_needed" },
+    { "text": "how many payslips will I need", "intent": "documents_needed" },
+    { "text": "what proof do I need for a full application", "intent": "documents_needed" },
+
+    { "text": "how long will my aip be valid for?", "intent": "aip_validity" },
+    { "text": "does my agreement in principle expire?", "intent": "aip_validity" },
+    { "text": "how many days before the aip expires", "intent": "aip_validity" },
+
+    { "text": "it says referred, what does that mean?", "intent": "referred_meaning" },
+    { "text": "my application got referred, why?", "intent": "referred_meaning" },
+    { "text": "is referred the same as being declined", "intent": "referred_meaning" },
+
+    { "text": "my application was declined, why?", "intent": "declined_next_steps" },
+    { "text": "can I apply again after a decline", "intent": "declined_next_steps" },
+    { "text": "why did you reject me", "intent": "declined_next_steps" },
+    { "text": "what should I do now I've been declined", "intent": "declined_next_steps" },
+
+    { "text": "what deposit will I need?", "intent": "deposit_ltv" },
+    { "text": "can I buy with a 10% deposit", "intent": "deposit_ltv" },
+    { "text": "explain loan to value please", "intent": "deposit_ltv" },
+    { "text": "what's the minimum deposit percentage", "intent": "deposit_ltv" },
+
+    { "text": "I'd like to speak to a person", "intent": "speak_to_advisor" },
+    { "text": "can I talk to an adviser please", "intent": "speak_to_advisor" },
+    { "text": "get me a human", "intent": "speak_to_advisor" },
+    { "text": "can someone call me back", "intent": "speak_to_advisor" },
+
+    { "text": "I'd like to complain", "intent": "complaint" },
+    { "text": "your service is terrible", "intent": "complaint" },
+    { "text": "where do I send a complaint", "intent": "complaint" },
+
+    { "text": "thanks very much", "intent": "thanks_goodbye" },
+    { "text": "ok bye", "intent": "thanks_goodbye" },
+    { "text": "thank you for your help", "intent": "thanks_goodbye" },
+
+    { "text": "what's the weather like today", "intent": "fallback" },
+    { "text": "should I buy bitcoin", "intent": "fallback" },
+    { "text": "tell me a joke", "intent": "fallback" },
+    { "text": "who won the football", "intent": "fallback" },
+    { "text": "what is the capital of France", "intent": "fallback" },
+    { "text": "can you book me a holiday", "intent": "fallback" }
+  ]
+}

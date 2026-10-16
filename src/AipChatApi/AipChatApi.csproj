@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The intent model (training phrases + approved answers) ships inside the assembly,
+         so every build is tied to exactly one model version -->
+    <Content Remove="Data\intents.json" />
+    <EmbeddedResource Include="Data\intents.json" LogicalName="AipChatApi.intents.json" />
+  </ItemGroup>
+
+</Project>

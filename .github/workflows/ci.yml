@@ -1,0 +1,85 @@
+name: CI
+
+# Mirrors the Jenkins build pipeline (Jenkinsfile) so every change proves the same commands work.
+on:
+  push:
+  pull_request:
+    branches: [main]
+
+env:
+  TRIVY_IMAGE: aquasec/trivy:0.58.1
+
+jobs:
+  build-test:
+    name: Build, test and model evaluation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unit tests and model evaluation (same command as Jenkins, in the .NET SDK container)
+        shell: bash
+        run: |
+          set -o pipefail
+          docker run --rm -e OWNER="$(id -u):$(id -g)" -e EVAL_REPORT_DIR=/src/TestResults/model-evaluation \
+            -v "$PWD":/src -w /src mcr.microsoft.com/dotnet/sdk:8.0 bash -ceu '
+              trap "chown -R $OWNER /src" EXIT
+              dotnet test tests/AipChatApi.Tests -c Release \
+                --logger "trx;LogFileName=unit-tests.trx" \
+                --logger "junit;LogFilePath=/src/TestResults/junit/unit-tests.xml" \
+                --collect:"XPlat Code Coverage;Format=cobertura,opencover" \
+                --results-directory /src/TestResults
+            ' 2>&1 | tee test-output.log
+      - name: Show test errors
+        if: failure()
+        run: grep -iE "error|fail|exception" test-output.log | head -20 | sed 's/^/::error::/'
+      - name: Publish the model evaluation report
+        if: always()
+        run: |
+          if [ -f TestResults/model-evaluation/model-evaluation.md ]; then
+            cat TestResults/model-evaluation/model-evaluation.md >> "$GITHUB_STEP_SUMMARY"
+            echo "::notice title=Model evaluation::$(grep -o 'Accuracy: [0-9.]*%' TestResults/model-evaluation/model-evaluation.md)"
+          else
+            echo "::error::Model evaluation report was not produced"
+            exit 1
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-and-model-evaluation
+          path: TestResults/
+
+  image:
+    name: Docker image, smoke test and Trivy scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build runtime image for EKS (linux/amd64)
+        run: docker build --platform linux/amd64 -t aip-chat-api:ci .
+      - name: Build runtime image for Apple Silicon (linux/arm64, cross-compiled)
+        run: docker buildx build --platform linux/arm64 -t aip-chat-api:ci-arm64 .
+      - name: Smoke the runtime image
+        run: |
+          docker run -d --name aip-chat-api -p 8080:8080 aip-chat-api:ci
+          for attempt in $(seq 1 30); do
+            curl --silent --fail http://localhost:8080/health > /dev/null && break
+            sleep 1
+          done
+          reply="$(curl --silent --fail -X POST http://localhost:8080/api/chat \
+            -H 'Content-Type: application/json' -d '{"message":"does this affect my credit score?"}')" \
+            || { docker logs aip-chat-api; exit 1; }
+          echo "$reply"
+          echo "$reply" | grep -q '"intent":"credit_score_impact"'
+      - name: Trivy image scan (same gate as Jenkins)
+        run: |
+          mkdir -p reports
+          TRIVY="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v trivy-cache:/root/.cache/ -v $PWD/reports:/reports $TRIVY_IMAGE"
+          $TRIVY image --no-progress --format json --output /reports/trivy-aip-chat-api.json aip-chat-api:ci
+          $TRIVY image --no-progress --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed aip-chat-api:ci
+      - name: Summarise vulnerabilities
+        if: failure()
+        run: |
+          jq -r '.Results[]? | .Target as $t | .Vulnerabilities[]? | select(.Severity=="HIGH" or .Severity=="CRITICAL") | select(.FixedVersion != null and .FixedVersion != "") | "::error title=\(.Severity) \(.VulnerabilityID)::\($t): \(.PkgName) \(.InstalledVersion) -> fix \(.FixedVersion)"' reports/*.json | sort -u | head -40
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trivy-report
+          path: reports/
